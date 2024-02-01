@@ -47,21 +47,21 @@ const Header = () => {
 
   const MobileMenu = () => {
     return (
-      <div className="mx-4 -mt-1 p-4 divide-gray-50 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 z-10 max-w-md float-right">
+      <div className="mx-4 -mt-1 p-4 divide-gray-50 rounded-lg bg-darkcustom-400 shadow-lg ring-1 ring-black ring-opacity-5 z-10 max-w-md float-right">
         {/* Nav items */}
-        <div className="grid grid-flow-row not-prose">
+        <div className="grid grid-flow-row not-prose transition-all ease-in-out delay-1000 pb-20">
           {NavItems.map((item) => (
             <a
               key={item.slug}
               className={
-                "pb-5 first:pt-3 px-3 last:pb-3 pt-5 border-b-2 border-slate-100 border-spacing-2 last:border-b-0 no-underline"
+                "pb-5 first:pt-3 px-3 last:pb-3 pt-5  border-spacing-2 last:border-b-0 no-underline text-gray-300 hover:text-gray-200"
               }
               href={item.slug}
               target={item.slug.includes("http") ? "_blank" : "_self"}
             >
               <p
                 className={cx(
-                  pathname === item.slug ? "text-text-cyan-700" : "",
+                  pathname === item.slug ? "text-platform-400" : "",
                   "my-0 pb-2 font-bold"
                 )}
               >
@@ -76,7 +76,7 @@ const Header = () => {
   };
 
   return (
-    <header className="prose max-w-none border-b-2 md:border-b-0 border-slate-100 mb-10 md:mb-20">
+    <header className="prose max-w-none border-b-0 md:border-b-0 border-slate-100 mb-10 md:mb-20">
       <VeecodeBanner/>
       <div className="flex justify-between items-center px-4 md:px-28 h-navbar py-4 md:py-10 bg-darkcustom-400">
         <a
@@ -90,13 +90,13 @@ const Header = () => {
         <nav className="-mr-2 min-[768px]:hidden">
           <button
             type="button"
-            className="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none"
+            className="inline-flex items-center justify-center rounded-md bg-darkcustom-400 p-2 text-gray-400 hover:bg-darkcustom-700 hover:text-gray-200 focus:outline-none"
             aria-label="Open menu"
             onClick={() => setMenuOpen(!menuOpen)}
           >
             {menuOpen ? (
               <svg
-                className="h-6 w-6 stroke-gray-900"
+                className="h-6 w-6 stroke-gray-200"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
@@ -112,7 +112,7 @@ const Header = () => {
               </svg>
             ) : (
               <svg
-                className="h-6 w-6 stroke-gray-900"
+                className="h-6 w-6 stroke-platform-400"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
@@ -138,7 +138,7 @@ const Header = () => {
               className={cx(
                 baseClasses,
                 pathname === item.slug
-                  ? "border-text-cyan-700 border-b-2"
+                  ? "border-text-cyan-700 border-b-2 border-platform-500"
                   : "border-transparent"
               )}
               href={item.slug}

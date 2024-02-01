@@ -3,6 +3,7 @@ import Image from "next/image";
 import type { InferGetStaticPropsType } from "next";
 import { createReader } from "@keystatic/core/reader";
 import { DocumentRenderer } from "@keystatic/core/renderer";
+import LazyLoad from 'react-lazyload';
 
 import config from "../keystatic.config";
 import Seo from "../components/Seo";
@@ -10,6 +11,7 @@ import Divider from "../components/Divider";
 import { inject } from "../utils/slugHelpers";
 import { cx } from "../utils/cx";
 import maybeTruncateTextBlock from "../utils/maybeTruncateTextBlock";
+import { useState } from "react";
 
 const reader = createReader("", config);
 
@@ -131,14 +133,15 @@ export default function Home({
           {orderedPostFeed.map((post) => {
             if (post.type === "externalArticle") {
               return (
-                <Card
-                  image={`/images/external-articles/${post.slug}/${post.coverImage}`}
-                  title={post.title}
-                  summary={post.summary}
-                  key={post.slug}
-                  link={post.directLink}
-                  externalLink
-                />
+                <LazyLoad key={post.slug} height={200} offset={100} once>
+                  <Card
+                    image={`/images/external-articles/${post.slug}/${post.coverImage}`}
+                    title={post.title}
+                    summary={post.summary}
+                    link={post.directLink}
+                    externalLink
+                  />
+                </LazyLoad>
               );
             }
             if (post.type === "post") {
@@ -160,31 +163,35 @@ export default function Home({
 }
 
 const Card = ({ image, title, summary, link, externalLink }: any) => {
+  const [loaded, setLoaded] = useState(false);
   return (
-    <li className={cx("group bg-darkcustom-400 p-3 rounded", externalLink && "external-link")}>
+    <li className={cx(`group bg-darkcustom-400 p-3 rounded ${!loaded && 'opacity-placeholder'}`, externalLink && "external-link")}>
       <Link
         href={link}
         target={externalLink ? "_blank" : "_self"}
         className="no-underline"
       >
-        <div className="">
-          <div>
+        <div>
+          <div className="relative w-full h-48">
             <Image
               src={image}
               alt=""
               width={768}
               height={400}
-              className="rounded-sm object-cover"
+              className="rounded-sm object-cover w-full h-full"
+              onLoad={() => setLoaded(true)} 
             />
           </div>
-          <h3 className="mt-4 text-xl font-medium group-hover:underline text-platform-400">
-            {title}
-          </h3>
-          {summary && (
-            <p className="mt-3 text-gray-400 my-2 line-clamp-3">
-              {maybeTruncateTextBlock(summary, 100)}
-            </p>
-          )}
+          <div className="md:min-h-[200px]">
+            <h3 className="mt-4 text-xl font-medium group-hover:underline text-platform-400">
+              {title}
+            </h3>
+            {summary && (
+              <p className="mt-3 text-gray-400 my-2 line-clamp-3">
+                {maybeTruncateTextBlock(summary, 100)}
+              </p>
+            )}
+          </div>
         </div>
       </Link>
     </li>
