@@ -10,7 +10,7 @@ const TweetEmbed = ({ tweet }: { tweet: string }) => {
   return (
     <div className="mx-auto flex justify-center external-link">
       <blockquote ref={wrapper} className="twitter-tweet">
-        <a href={tweet} target="_blank" rel="noopener noreferrer" />
+        <a href={tweet} target="_blank" rel="noopener noreferrer" className="text-platform-700 hover:text-platform-300" />
       </blockquote>
     </div>
   );

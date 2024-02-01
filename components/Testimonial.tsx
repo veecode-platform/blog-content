@@ -16,7 +16,7 @@ const Testimonial = ({
         <p className="mb-2">{author}</p>
         {socialLink && workplaceOrSocial ? (
           <a
-            className="text-slate-400 hover:text-text-cyan-700"
+            className="text-platform-700 hover:text-platform-300"
             href={socialLink}
             target="_blank"
             rel="noopener noreferrer]"
@@ -24,7 +24,7 @@ const Testimonial = ({
             {workplaceOrSocial}
           </a>
         ) : workplaceOrSocial ? (
-          <p className="text-slate-400">{workplaceOrSocial}</p>
+          <p className="text-gray-400">{workplaceOrSocial}</p>
         ) : null}
       </div>
     </div>

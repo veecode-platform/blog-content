@@ -94,7 +94,7 @@ export default function Post({ post, authors }: TheLot) {
       />
       <div className="flex gap-3 items-center flex-wrap">
         {authors && <AvatarList authors={authors} />}
-        <p className="font-semibold text-platform-700">{formattedNames}</p>
+        <p className="font-semibold text-gray-300">{formattedNames}</p>
       </div>
 
       <div className="mt-4 flex justify-between">

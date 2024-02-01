@@ -24,7 +24,7 @@ export const NavItems = [
 
 const VeecodeBanner = () => {
   return (
-    <div className="py-3 external-link bg-gradient-to-r from-platform-700 from-10% via-sky-500 via-30% to-emerald-500 to-90% text-white fill-white text-center text-sm">
+    <div className="hidden md:block py-3 external-link bg-gradient-to-r from-platform-700 from-10% via-sky-500 via-30% to-emerald-500 to-90% text-white fill-white text-center text-sm">
        Visit our website, and get to know the{" "}
       <img className="my-0 inline" width="20" src="/veecode.svg" alt="VeeCode logo" />{" "}
       <strong className="text-white">VeeCode Platform devportal</strong>.{" "}
