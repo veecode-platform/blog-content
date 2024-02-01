@@ -20,7 +20,10 @@ const storage: LocalConfig["storage"] | GitHubConfig["storage"] =
       };
 
 export default config({
-  storage,
+  storage:{
+    kind: 'github',
+    repo: 'veecode-platform/blog'
+  },
   singletons: {
     home: singleton({
       label: "Home",

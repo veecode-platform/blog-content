@@ -10,9 +10,9 @@ type MetaData = {
 };
 
 const defaultMeta = {
-  title: "Keystatic | Blog Template",
+  title: "VeeCode Blog",
   description:
-    "Solaris Daily News is a fictive blog about biometrics to demo Keystatic. Built by Thinkmill with Tailwind CSS and Next.js.",
+    "A blog about VeeCode Platform made with Tailwind CSS and Next.js.",
   imagePath: "/images/seo-image.png",
   imageAlt: "cover image for the Keystatic Blog Template",
 };
