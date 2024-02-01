@@ -113,7 +113,7 @@ export default function Home({
               block: {
                 paragraph: ({ children }) => {
                   return (
-                    <h1 className="text-center font-bold text-2xl max-w-xs sm:text-5xl sm:max-w-2xl lg:text-7xl lg:max-w-[60rem] mx-auto">
+                    <h1 className="text-center font-bold text-2xl max-w-xs sm:text-5xl sm:max-w-2xl lg:text-7xl lg:max-w-[60rem] mx-auto mx-autotext-transparent text-transparent bg-clip-text bg-gradient-to-r from-platform-400 to-sky-600">
                       {children}
                     </h1>
                   );
@@ -127,7 +127,7 @@ export default function Home({
       {orderedPostFeed.length === 0 ? (
         <h2>There are no posts available</h2>
       ) : (
-        <ul className="grid grid-cols-1 gap-4 md:gap-x-6 gap-y-20 sm:gap-y-16 md:grid-cols-2 xl:grid-cols-3 pl-0">
+        <ul className="grid my-5 mb-20 grid-cols-1 gap-1 md:gap-x-6 gap-y-20 sm:gap-y-16 md:grid-cols-2 xl:grid-cols-3 pl-0">
           {orderedPostFeed.map((post) => {
             if (post.type === "externalArticle") {
               return (
@@ -161,27 +161,27 @@ export default function Home({
 
 const Card = ({ image, title, summary, link, externalLink }: any) => {
   return (
-    <li className={cx("group", externalLink && "external-link")}>
+    <li className={cx("group bg-darkcustom-400 p-3 rounded", externalLink && "external-link")}>
       <Link
         href={link}
         target={externalLink ? "_blank" : "_self"}
         className="no-underline"
       >
-        <div>
+        <div className="">
           <div>
             <Image
               src={image}
               alt=""
               width={768}
               height={400}
-              className="ring-1 ring-black/5 rounded-sm"
+              className="rounded-sm object-cover"
             />
           </div>
-          <h3 className="mt-4 text-xl font-medium group-hover:underline">
+          <h3 className="mt-4 text-xl font-medium group-hover:underline text-platform-400">
             {title}
           </h3>
           {summary && (
-            <p className="mt-3 text-gray-600 line-clamp-3">
+            <p className="mt-3 text-gray-400 my-2 line-clamp-3">
               {maybeTruncateTextBlock(summary, 100)}
             </p>
           )}

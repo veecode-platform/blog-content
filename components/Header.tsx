@@ -3,40 +3,40 @@ import Image from "next/image";
 import Logo from "../assets/logo.svg";
 import { cx } from "../utils/cx";
 import React from "react";
+const VeeCodeLogo = "/logo/logo.png"
 
 export const baseClasses =
-  "no-underline justify-center items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 text-gray-800 px-0 hover:text-cyan-700 hover:bg-none bg-none font-medium shrink-0";
+  "no-underline justify-center items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 text-gray-400 px-0 hover:text-gray-200 hover:bg-none bg-none font-medium shrink-0";
 
 export const NavItems = [
   {
     name: "Home",
     slug: "/",
     description:
-      "A collection of readings on the power and potential of biometrics",
+      "A collection of readings on the power and potential of VeeCode Platform",
   },
   {
-    name: "About",
-    slug: "/about",
-    description: "Solaris is a simple blog template for Keystatic.",
+    name: "Docs",
+    slug: "https://docs.platform.vee.codes/",
+    description: "A Tool to automate OpenAPI applications development.",
   },
 ];
 
-const KeystaticBanner = () => {
+const VeecodeBanner = () => {
   return (
-    <div className="py-3 external-link bg-black text-white fill-white text-center text-sm">
-      You're looking at a{" "}
-      <img className="my-0 inline" src="/keystatic.svg" alt="Keystatic logo" />{" "}
-      <strong className="text-white">KEYSTATIC</strong> template.{" "}
+    <div className="py-3 external-link bg-gradient-to-r from-platform-700 from-10% via-sky-500 via-30% to-emerald-500 to-90% text-white fill-white text-center text-sm">
+       Visit our website, and get to know the{" "}
+      <img className="my-0 inline" width="20" src="/veecode.svg" alt="VeeCode logo" />{" "}
+      <strong className="text-white">VeeCode Platform devportal</strong>.{" "}
       <a
-        href="https://keystatic.com"
+        href="https://platform.vee.codes/"
         className="text-white hover:text-text-cyan-700"
         target="_blank"
         rel="noopener noreferrer"
       >
-        Learn more about Keystatic
+        here
         <span className="sr-only">opens in a new tab</span>
-      </a>{" "}
-      and get this template for free.
+      </a>
     </div>
   );
 };
@@ -57,6 +57,7 @@ const Header = () => {
                 "pb-5 first:pt-3 px-3 last:pb-3 pt-5 border-b-2 border-slate-100 border-spacing-2 last:border-b-0 no-underline"
               }
               href={item.slug}
+              target={item.slug.includes("http") ? "_blank" : "_self"}
             >
               <p
                 className={cx(
@@ -76,14 +77,14 @@ const Header = () => {
 
   return (
     <header className="prose max-w-none border-b-2 md:border-b-0 border-slate-100 mb-10 md:mb-20">
-      <KeystaticBanner />
-      <div className="flex justify-between items-center px-4 md:px-28 py-4 md:py-10 h-full">
+      <VeecodeBanner/>
+      <div className="flex justify-between items-center px-4 md:px-28 h-navbar py-4 md:py-10 bg-darkcustom-400">
         <a
           className="no-underline text-xl font-bold"
           href="/"
           aria-label="Link to home page"
         >
-          🌎 &nbsp; Solaris Daily News
+          <Image src={VeeCodeLogo} width={150} height={50} alt="VeeCode Platform Logo" />
         </a>
         {/* Mobile Hamburger Icon button */}
         <nav className="-mr-2 min-[768px]:hidden">
@@ -141,6 +142,7 @@ const Header = () => {
                   : "border-transparent"
               )}
               href={item.slug}
+              target={item.slug.includes("http") ? "_blank" : "_self"}
             >
               {item.name}
             </a>

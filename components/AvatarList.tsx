@@ -16,7 +16,7 @@ const AvatarList = ({ authors }: Props) => {
         author.avatar ? (
           <li key={author.slug}>
             <Img
-              className="w-10 h-10 rounded-full ring-2 ring-white object-cover"
+              className="w-10 h-10 rounded-full ring-2 ring-platform-700 object-cover"
               alt={`Avatar for ${author.name}`}
               src={`/images/authors/${author.slug}/${author.avatar}`}
               width={80}

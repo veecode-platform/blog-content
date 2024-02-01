@@ -1,5 +1,5 @@
-import Image from "next/image";
-import Stars from "../assets/icons/stars.svg";
+// import Image from "next/image";
+// import Stars from "../assets/icons/stars.svg";
 
 const Divider = ({ noIcon = false }: { noIcon?: boolean }) => {
   return (
@@ -12,13 +12,13 @@ const Divider = ({ noIcon = false }: { noIcon?: boolean }) => {
       ) : (
         <>
           <div className="h-0.5 flex-1 bg-gray-300 " />
-          <Image
+          {/* <Image
             aria-hidden
             alt=""
             src={Stars}
             className="h-8 w-8 stroke-gray-400 "
-          />
-          <div className="h-0.5 flex-1 bg-gray-300 " />
+          /> */}
+          {/* <div className="h-0.5 flex-1 bg-gray-300 " /> */}
         </>
       )}
     </div>

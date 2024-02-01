@@ -16,6 +16,7 @@ import TweetEmbed from "../components/TweetEmbed";
 import LoopingVideo from "../components/LoopingVideo";
 import Testimonial from "../components/Testimonial";
 import AvatarList from "../components/AvatarList";
+import Button from "../components/Button";
 
 export async function getStaticPaths() {
   const reader = createReader("", config);
@@ -93,11 +94,11 @@ export default function Post({ post, authors }: TheLot) {
       />
       <div className="flex gap-3 items-center flex-wrap">
         {authors && <AvatarList authors={authors} />}
-        <p className="font-semibold text-gray-900">{formattedNames}</p>
+        <p className="font-semibold text-platform-700">{formattedNames}</p>
       </div>
 
       <div className="mt-4 flex justify-between">
-        <span className="flex gap-1 text-gray-700">
+        <span className="flex gap-1 text-gray-600">
           {post.publishedDate && (
             <p className="">
               {dateFormatter(post.publishedDate, "do MMM yyyy")}
@@ -110,8 +111,8 @@ export default function Post({ post, authors }: TheLot) {
       </div>
 
       <div className="mt-8 prose max-w-none">
-        <h1 className="mt-4">{post.title}</h1>
-        <p className="text-lg">{post.summary}</p>
+        <h1 className="mt-4 text-gray-200">{post.title}</h1>
+        <p className="text-lg text-gray-300">{post.summary}</p>
         {post.coverImage && (
           <div className="mt-10 not-prose">
             <NextImage
@@ -123,7 +124,7 @@ export default function Post({ post, authors }: TheLot) {
             />
           </div>
         )}
-        <div className="mt-10">
+        <div className="mt-10 text-gray-200">
           <DocumentRenderer
             document={post.content}
             componentBlocks={{
@@ -174,6 +175,9 @@ export default function Post({ post, authors }: TheLot) {
             }}
           />
         </div>
+      </div>
+      <div className="w-full flex justify-end mt-20 my-10">
+        <Button href="/" externalLink={false} label="back to home" />
       </div>
     </div>
   );

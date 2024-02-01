@@ -5,3 +5,32 @@
 [target="_blank"]:not(.external-link a) {
   @apply after:ml-0.5 after:inline-block after:text-[0.8em] after:no-underline after:content-['_↗'];
 }
+
+html,body {
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  scroll-snap-type: y mandatory;
+  box-sizing: border-box;
+  font-size: 16px;
+  /* width */
+  &::-webkit-scrollbar {
+  width: 8px;
+  background: #111111;
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+      box-shadow: inset 0 0 5px grey; 
+      border-radius: 10px;
+  }
+  
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+      background: #33FFCE; 
+  }
+  
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+      background: #28cca4; 
+  }
+}

@@ -19,7 +19,7 @@ export type ButtonProps = ButtonOrLinkProps & {
 };
 
 const buttonClasses =
-  "px-4 py-2 bg-text-cyan-700 text-white hover:text-white hover:bg-black rounded-md no-underline hover:cursor-pointer";
+  "px-4 py-2 bg-darkcustom-400 text-white hover:text-platform-400 hover:bg-black rounded-md no-underline hover:cursor-pointer";
 
 const Button = ({ href, externalLink, label }: ButtonProps) => {
   if (externalLink) {
@@ -29,6 +29,7 @@ const Button = ({ href, externalLink, label }: ButtonProps) => {
         target="_blank"
         rel="noopener noreferrer"
         className={buttonClasses}
+        type="button"
       >
         {label}
       </a>
