@@ -115,7 +115,7 @@ export default function Home({
               block: {
                 paragraph: ({ children }) => {
                   return (
-                    <h1 className="text-center font-bold text-2xl max-w-xs sm:text-5xl sm:max-w-2xl lg:text-7xl lg:max-w-[60rem] mx-auto mx-autotext-transparent text-transparent bg-clip-text bg-gradient-to-r from-platform-400 to-sky-600">
+                    <h1 className="text-center font-bold text-[2.8rem] px-2 pt-5 pb-20 sm:text-7xl sm:max-w-2xl lg:text-7xl lg:max-w-[60rem] mx-auto mx-autotext-transparent text-transparent bg-clip-text bg-gradient-to-r from-platform-400 to-sky-600">
                       {children}
                     </h1>
                   );

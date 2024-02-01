@@ -47,14 +47,14 @@ const Header = () => {
 
   const MobileMenu = () => {
     return (
-      <div className="mx-4 -mt-1 p-4 divide-gray-50 rounded-lg bg-darkcustom-400 shadow-lg ring-1 ring-black ring-opacity-5 z-10 max-w-md float-right">
+      <div className="w-full p-2 divide-gray-50 rounded-lg bg-darkcustom-400 shadow-lg z-10 float-right transition-all ease-in-out delay-300">
         {/* Nav items */}
-        <div className="grid grid-flow-row not-prose transition-all ease-in-out delay-1000 pb-20">
+        <div className="grid grid-flow-row not-prose pb-20">
           {NavItems.map((item) => (
             <a
               key={item.slug}
               className={
-                "pb-5 first:pt-3 px-3 last:pb-3 pt-5  border-spacing-2 last:border-b-0 no-underline text-gray-300 hover:text-gray-200"
+                "pb-5 first:pt-3 px-3 last:pb-3 pt-5  border-spacing-2 last:border-b-0 no-underline text-gray-300 hover:text-gray-200 text-center text-xl "
               }
               href={item.slug}
               target={item.slug.includes("http") ? "_blank" : "_self"}
@@ -67,7 +67,7 @@ const Header = () => {
               >
                 {item.name}
               </p>
-              <p className="my-0">{item.description}</p>
+              {/* <p className="my-0">{item.description}</p> */}
             </a>
           ))}
         </div>
