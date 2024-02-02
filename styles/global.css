@@ -51,6 +51,7 @@ a:hover{
   transition: all .5s ease-in-out;
 }
 
-h1,h2,h3,h4,h5,h6,b,strong{
+h4,b,strong{
   color: #b2adbe!important;
+  font-size: larger;
 }
