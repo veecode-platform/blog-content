@@ -1,0 +1,33 @@
+Teste de Post
+
+Aqui eu devo escrever todo o conteúdo do meu post, destacando tudo que quero passar para o leitor, lembrando que após o texto ser digitado, passe por alguma ferramenta que conte as palavras do texto e preencha o campo "Word count" para o sistema fazer uma previsão de tempo de leitura do post.
+
+Uma boa ferramenta para fazer essa contagem de forma automática é esse > [https://quillbot.com/word-counter?campaignid=&adgroupid=&adid=-4181355041418733060&utm_medium=cpc&utm_source=google&utm_campaign=VS+|+PERF+-+Search+-+DSA+|+General+|+DEVP+|+ROAS&utm_term=&utm_content=672936159735&campaign_type=search-18382961909&click_id=Cj0KCQiAwvKtBhDrARIsAJj-kTg3fDwRG1Ddf8wxDXSlYDyrWYFMMUg8C4Ie8jR-pWEcknhTbOckQ3caAiApEALw_wcB&campaign_id=18382961909&adgroup_id=143727230145&ad_id=672936159735&keyword=&placement=&target=&network=g&gad_source=1&gclid=Cj0KCQiAwvKtBhDrARIsAJj-kTg3fDwRG1Ddf8wxDXSlYDyrWYFMMUg8C4Ie8jR-pWEcknhTbOckQ3caAiApEALw_wcB](https://quillbot.com/word-counter?campaignid=&adgroupid=&adid=-4181355041418733060&utm_medium=cpc&utm_source=google&utm_campaign=VS+%7C+PERF+-+Search+-+DSA+%7C+General+%7C+DEVP+%7C+ROAS&utm_term=&utm_content=672936159735&campaign_type=search-18382961909&click_id=Cj0KCQiAwvKtBhDrARIsAJj-kTg3fDwRG1Ddf8wxDXSlYDyrWYFMMUg8C4Ie8jR-pWEcknhTbOckQ3caAiApEALw_wcB&campaign_id=18382961909&adgroup_id=143727230145&ad_id=672936159735&keyword=&placement=&target=&network=g&gad_source=1&gclid=Cj0KCQiAwvKtBhDrARIsAJj-kTg3fDwRG1Ddf8wxDXSlYDyrWYFMMUg8C4Ie8jR-pWEcknhTbOckQ3caAiApEALw_wcB)
+
+Abaixo vamos destacar alguns componentes que podemos usar em nosso post:
+
+Caso eu queira separar etapas do meu post eu posso separar argumentos com um "divider":
+
+{% divider noIcon=false /%}
+
+Caso eu queria adicionar um vídeo do youtute:
+
+{% youtubeEmbed youtubeLink="https://www.youtube.com/watch?v=Pmwh8JJelkg" /%}
+
+Caso eu queria criar um banner informativo:
+
+{% banner
+   heading="Cabeçalho do banner"
+   bodyText="Algo que possa criar dentro do body do banner."
+   externalLinkHref="https://www.youtube.com/watch?v=Pmwh8JJelkg"
+   externalLinkLabel="Link do video acima" /%}
+
+Agora esse exemplo é de um feedback:
+
+{% testimonial
+   quote="Alguma frase dita por alguem sobre o tema."
+   author="Autor Desconhecido"
+   workplaceOrSocial="VeeCode LinkedIn"
+   socialLink="https://www.linkedin.com/showcase/veecode-platform/" /%}
+
+{% image src="seo-image.png" alt="Imagem" caption="Alguma imagem***" /%}

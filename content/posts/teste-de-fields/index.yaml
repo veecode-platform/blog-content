@@ -1,0 +1,11 @@
+title: Teste de Fields
+summary: >-
+  Um simples teste de field. Este componente é apenas para dar uma pincelada
+  prévia sobre o post, não precisa ser muito texto, mas razoável, lembre-se de
+  usar algum app para contar as palavras de seu post e preencha o campo "word
+  count".
+publishedDate: '2024-02-02'
+coverImage: coverImage.jpg
+authors:
+  - emilia-blight
+  - albert-einstein
