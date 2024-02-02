@@ -39,3 +39,13 @@ html,body {
   opacity: 0; 
   transition: opacity 0.3s ease-in-out; 
 }
+
+a{
+  color: #28cca4!important;
+  transition: all .5s ease-in;
+}
+
+a:hover{
+  color: #33FFCE!important;
+  transition: all .5s ease-in-out;
+}
