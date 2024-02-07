@@ -5,6 +5,7 @@ import { inject } from "../../utils/slugHelpers";
 import Card from "@/components/Card";
 import { reader } from "../reader";
 
+
 async function getHomeData() {
   const homePage = await reader.singletons.home.read();
   const homePageHeading = await (homePage?.heading() || []);

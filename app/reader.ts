@@ -1,7 +1,4 @@
-import { createGitHubReader } from '@keystatic/core/reader/github';
+import { createReader } from '@keystatic/core/reader';
 import keystaticConfig from '../keystatic.config';
 
-export const reader = createGitHubReader(keystaticConfig, {
-    repo: 'Thinkmill/keystatic-data',
-    token: process.env.GITHUB_PAT,
-});
+export const reader = createReader(process.cwd(), keystaticConfig);
