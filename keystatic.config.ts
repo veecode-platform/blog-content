@@ -1,28 +1,19 @@
-import {
-  collection,
-  config,
-  fields,
-  GitHubConfig,
-  LocalConfig,
-  singleton,
-} from "@keystatic/core";
-import { ComponentBlocks } from "./components/ComponentBlocks";
+import { config, fields, collection, singleton } from '@keystatic/core';
+import { ComponentBlocks } from './components/ComponentBlocks';
+import { VeeCodeLogo } from './components/VeeCodeLogo';
 
-const storage: LocalConfig["storage"] | GitHubConfig["storage"] =
-  process.env.NODE_ENV === "development"
-    ? { kind: "local" }
-    : {
-        kind: "github",
-        repo: {
-          owner: process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_OWNER!,
-          name: process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_SLUG!,
-        },
-      };
+// copiar a estrutura antiga
 
 export default config({
-  storage:{
+  storage: {
     kind: 'github',
     repo: 'veecode-platform/blog'
+  },
+  ui:{
+    brand:{
+      name: 'VeeCode Blog',
+      mark: VeeCodeLogo
+    }
   },
   singletons: {
     home: singleton({
@@ -86,10 +77,12 @@ export default config({
       label: "Posts",
       path: "content/posts/*/",
       slugField: "title",
+      previewUrl: `/preview/start?branch={branch}&to=/posts/{slug}`,
+      //format: { contentField: 'content' },
       schema: {
         title: fields.slug({
           name: {
-            label: "Title",
+            label: "Title"
           },
         }),
         summary: fields.text({

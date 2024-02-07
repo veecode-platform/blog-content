@@ -1,33 +1,33 @@
 {
-  "name": "@keystatic/demo-blog",
+  "name": "blog-ts",
+  "version": "0.1.0",
   "private": true,
-  "version": "0.0.0",
-  "dependencies": {
-    "@keystatic/core": "^0.0.116",
-    "@keystatic/next": "^0.0.11",
-    "@types/react": "^18.2.21",
-    "@types/react-dom": "^18.2.7",
-    "date-fns": "^2.30.0",
-    "next": "^13.4.19",
-    "postcss-nesting": "^12.0.2",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-icons": "^5.0.1",
-    "react-lazyload": "^3.2.0",
-    "sharp": "^0.33.2",
-    "typescript": "^5.1.6"
-  },
   "scripts": {
-    "dev": "next -p 4444",
+    "dev": "next dev",
     "build": "next build",
-    "postinstall": "touch .env"
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@keystatic/core": "^0.3.12",
+    "@keystatic/next": "^3.0.0",
+    "date-fns": "^3.3.1",
+    "next": "14.1.0",
+    "react": "^18",
+    "react-dom": "^18",
+    "react-icons": "^5.0.1",
+    "react-lazyload": "^3.2.0"
   },
   "devDependencies": {
-    "@tailwindcss/line-clamp": "^0.4.4",
-    "@tailwindcss/typography": "^0.5.9",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
     "@types/react-lazyload": "^3.2.3",
-    "autoprefixer": "^10.4.15",
-    "postcss": "^8.4.28",
-    "tailwindcss": "^3.3.3"
+    "autoprefixer": "^10.0.1",
+    "eslint": "^8",
+    "eslint-config-next": "14.1.0",
+    "postcss": "^8",
+    "tailwindcss": "^3.3.0",
+    "typescript": "^5"
   }
 }

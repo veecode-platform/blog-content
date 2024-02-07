@@ -1,3 +1,5 @@
+"use client"
+
 import Img from "next/image";
 
 type Props = {

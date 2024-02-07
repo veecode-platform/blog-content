@@ -1,22 +1,11 @@
-import Link from "next/link";
-import Image from "next/image";
-import type { InferGetStaticPropsType } from "next";
-import { createReader } from "@keystatic/core/reader";
 import { DocumentRenderer } from "@keystatic/core/renderer";
-import LazyLoad from 'react-lazyload';
-
-import config from "../keystatic.config";
-import Seo from "../components/Seo";
-import Divider from "../components/Divider";
-import { inject } from "../utils/slugHelpers";
-import { cx } from "../utils/cx";
-import maybeTruncateTextBlock from "../utils/maybeTruncateTextBlock";
-import { useState } from "react";
-
-const reader = createReader("", config);
+import Seo from "../../components/Seo";
+import Divider from "../../components/Divider";
+import { inject } from "../../utils/slugHelpers";
+import Card from "@/components/Card";
+import { reader } from "../reader";
 
 async function getHomeData() {
-  const reader = createReader("", config);
   const homePage = await reader.singletons.home.read();
   const homePageHeading = await (homePage?.heading() || []);
 
@@ -28,6 +17,7 @@ async function getHomeData() {
 
 async function getPostData() {
   const postSlugs = await reader.collections.posts.list();
+
   const postData = await Promise.all(
     postSlugs.map(async (slug) => {
       const post = await reader.collections.posts.read(slug);
@@ -64,7 +54,9 @@ async function getAllAuthors() {
   return allAuthors;
 }
 
-export async function getStaticProps() {
+
+export default async function Home() {
+
   const [home, posts, externalArticles, authors] = await Promise.all([
     getHomeData(),
     getPostData(),
@@ -72,21 +64,6 @@ export async function getStaticProps() {
     getAllAuthors(),
   ]);
 
-  return {
-    props: {
-      home,
-      posts,
-      externalArticles,
-      authors,
-    },
-  };
-}
-
-export default function Home({
-  home,
-  posts,
-  externalArticles,
-}: InferGetStaticPropsType<typeof getStaticProps>) {
   const allPosts = [...posts, ...externalArticles];
   const orderedPostFeed = allPosts.sort((a, b) => {
     if (a?.publishedDate && b?.publishedDate) {
@@ -133,15 +110,14 @@ export default function Home({
           {orderedPostFeed.map((post) => {
             if (post.type === "externalArticle") {
               return (
-                <LazyLoad key={post.slug} height={200} offset={100} once>
-                  <Card
-                    image={`/images/external-articles/${post.slug}/${post.coverImage}`}
-                    title={post.title}
-                    summary={post.summary}
-                    link={post.directLink}
-                    externalLink
-                  />
-                </LazyLoad>
+                <Card
+                  image={`/images/external-articles/${post.slug}/${post.coverImage}`}
+                  title={post.title}
+                  summary={post.summary}
+                  link={post.directLink}
+                  externalLink
+                  key={post.slug}
+                />
               );
             }
             if (post.type === "post") {
@@ -161,39 +137,3 @@ export default function Home({
     </div>
   );
 }
-
-const Card = ({ image, title, summary, link, externalLink }: any) => {
-  const [loaded, setLoaded] = useState(false);
-  return (
-    <li className={cx(`group bg-darkcustom-400 p-3 rounded ${!loaded && 'opacity-placeholder'}`, externalLink && "external-link")}>
-      <Link
-        href={link}
-        target={externalLink ? "_blank" : "_self"}
-        className="no-underline"
-      >
-        <div>
-          <div className="relative w-full h-48">
-            <Image
-              src={image}
-              alt=""
-              width={768}
-              height={400}
-              className="rounded-sm object-cover w-full h-full"
-              onLoad={() => setLoaded(true)} 
-            />
-          </div>
-          <div className="md:min-h-[200px]">
-            <h3 className="mt-4 text-xl font-medium group-hover:underline text-platform-400">
-              {title}
-            </h3>
-            {summary && (
-              <p className="mt-3 text-gray-400 my-2 line-clamp-3">
-                {maybeTruncateTextBlock(summary, 100)}
-              </p>
-            )}
-          </div>
-        </div>
-      </Link>
-    </li>
-  );
-};

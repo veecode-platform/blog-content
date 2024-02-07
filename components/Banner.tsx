@@ -1,3 +1,5 @@
+"use client"
+
 import Image from "next/image";
 import stars from "../assets/icons/stars.svg";
 

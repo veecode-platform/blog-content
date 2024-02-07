@@ -1,0 +1,183 @@
+import NextImage from "next/image";
+import dateFormatter from "../../../utils/dateFormatter";
+import readTime from "../../../utils/readTime";
+import { DocumentRenderer } from "@keystatic/core/renderer";
+
+import Seo from "../../../components/Seo";
+import Banner from "../../../components/Banner";
+import InlineCTA from "../../../components/InlineCTA";
+import Divider from "../../../components/Divider";
+import Image from "../../../components/Image";
+import YouTubeEmbed from "../../../components/YouTubeEmbed";
+import TweetEmbed from "../../../components/TweetEmbed";
+import LoopingVideo from "../../../components/LoopingVideo";
+import Testimonial from "../../../components/Testimonial";
+import AvatarList from "../../../components/AvatarList";
+import Button from "../../../components/Button";
+import { DocumentElement } from "@keystatic/core";
+import { reader } from "@/app/reader";
+import { notFound } from "next/navigation";
+
+interface Post {
+  title: string;
+  summary: string;
+  publishedDate: string | null;
+  coverImage: string | null;
+  wordCount: number | null;
+  authors: readonly (string | null)[];
+  content: DocumentElement[];
+}
+
+
+export default async function Post({ params }: { params: { slug: string } }) {
+
+  const { slug } = params;
+
+  const post = await reader.collections.posts.readOrThrow(slug);
+
+  if (!post) notFound()
+
+  const authors = await Promise.all(
+    post!.authors.map(async (authorSlug) => {
+      const author = await reader.collections.authors.read(authorSlug || "");
+      return { ...author, slug: authorSlug };
+    })
+  );
+  // const authors = await Promise.all(
+  //   post.authors.map(async (authorSlug) => ({
+  //     ...(await reader.collections.authors.readOrThrow(authorSlug!)),
+  //     slug: authorSlug,
+  //   }))
+  // )
+ 
+  const formattedNames = post.authors.join("and ", );
+
+  return (
+      <div className="max-w-4xl mx-auto px-4 md:px-10">
+      <Seo
+       title={post.title}
+       description={post.summary}
+       imagePath={
+         post.coverImage
+           ? `/images/posts/${slug}/${post.coverImage}`
+           : "/images/seo-image.png"
+       }
+     />
+     <div className="flex gap-3 items-center flex-wrap">
+       {authors && <AvatarList authors={authors} />}
+       <p className="font-semibold text-gray-300">{formattedNames}</p>
+     </div>
+
+     <div className="mt-4 flex justify-between">
+       <span className="flex gap-1 text-gray-600">
+         {post.publishedDate && (
+           <p className="">
+             {dateFormatter(post.publishedDate, "do MMM yyyy")}
+           </p>
+         )}
+         {post.wordCount && post.wordCount !== 0 ? (
+           <p className="">· {readTime(post.wordCount)}</p>
+         ) : null}
+       </span>
+     </div>
+
+     <div className="mt-8 prose max-w-none">
+       <h1 className="mt-4 text-gray-200">{post.title}</h1>
+       <p className="text-lg text-gray-300">{post.summary}</p>
+       {(post && post.coverImage) && (
+         <div className="mt-10 not-prose">
+           <NextImage
+             width={1536}
+             height={800}
+             src={`/images/posts/${slug}/${post.coverImage}`}
+             alt={`${post.title} Cover image`}
+             className="w-full rounded-md"
+           />
+         </div>
+       )}
+       <div className="mt-10 text-gray-200">
+         <DocumentRenderer
+           document={await post.content()}
+           componentBlocks={{
+             inlineCta: (props) => (
+               <InlineCTA
+                 title={props.title}
+                 summary={props.summary}
+                 linkButton={{
+                   externalLink: props.externalLink,
+                   href: props.href,
+                   label: props.linkLabel,
+                 }}
+               />
+             ),
+             divider: (props) => <Divider noIcon={props.noIcon} />,
+             banner: (props) => (
+               <Banner
+                 heading={props.heading}
+                 bodyText={props.bodyText}
+                 externalLink={{
+                   href: props.externalLinkHref,
+                   label: props.externalLinkLabel,
+                 }}
+               />
+             ),
+             youtubeEmbed: (props) => (
+               <YouTubeEmbed youtubeLink={props.youtubeLink} />
+             ),
+             tweetEmbed: (props) => <TweetEmbed tweet={props.tweet} />,
+             loopingVideo: (props) => (
+               <LoopingVideo src={props.src} caption={props.caption} />
+             ),
+             image: (props) => (
+               <Image
+                 src={props.src}
+                 alt={props.alt}
+                 caption={props.caption}
+               />
+             ),
+             testimonial: (props) => (
+               <Testimonial
+                 quote={props.quote}
+                 author={props.author}
+                 workplaceOrSocial={props.workplaceOrSocial}
+                 socialLink={props.socialLink}
+               />
+             ),
+           }}
+         />
+       </div>
+     </div>
+     <div className="w-full flex justify-end mt-20 my-10">
+       <Button href="/" externalLink={false} label="back to home" />
+     </div> 
+   </div>
+     )
+}
+
+export async function generateStaticParams(){
+  const slugs = await reader.collections.posts.list();
+
+  return slugs.map((slug)=>{
+    slug 
+  })
+
+}
+
+// async function generateStaticParams() {
+//   const postSlugs = await reader.collections.posts.list();
+
+//   const postData = await Promise.all(
+//     postSlugs.map(async (slug) => {
+//       const post = await reader.collections.posts.read(slug);
+//       const content = (await post?.content()) || [];
+
+//       return {
+//         ...post,
+//         content,
+//         slug,
+//         ...({ type: "post" } as const),
+//       };
+//     })
+//   );
+//   return postData;
+// }

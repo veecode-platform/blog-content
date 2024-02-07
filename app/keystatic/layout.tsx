@@ -1,10 +1,6 @@
 import KeystaticApp from "./keystatic";
 
-export const metadata = {
-  title: "Keystatic: Admin UI",
-};
-
-export default function RootLayout() {
+export default function Layout() {
   return (
     <html>
       <head />

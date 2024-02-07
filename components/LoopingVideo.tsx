@@ -1,3 +1,5 @@
+"use client"
+
 const LoopingVideo = ({ src, caption }: { src: string; caption?: string }) => {
   return (
     <div className="flex flex-col items-center">

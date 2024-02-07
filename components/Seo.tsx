@@ -1,6 +1,8 @@
+"use client"
+
 import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
 import NextHead from "next/head";
+import { usePathname } from 'next/navigation'
 
 type MetaData = {
   title?: string;
@@ -24,7 +26,7 @@ export default function Seo({
   imageAlt = defaultMeta.imageAlt,
 }: MetaData) {
   // Get correct domain to pass it to SEO image
-  const router = useRouter();
+  const pathname = usePathname();
   const [rootUrl, setRootUrl] = useState("");
   const [currentUrl, setCurrentUrl] = useState("");
   useEffect(() => {
@@ -32,7 +34,7 @@ export default function Seo({
     const current = root + window.location.pathname;
     setRootUrl(root);
     setCurrentUrl(current);
-  }, [router.pathname]);
+  }, [pathname]);
 
   return (
     <NextHead>

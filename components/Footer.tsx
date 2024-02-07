@@ -1,3 +1,5 @@
+"use client"
+
 import { usePathname } from "next/navigation";
 import { cx } from "../utils/cx";
 import { baseClasses, NavItems } from "./Header";
