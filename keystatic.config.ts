@@ -7,7 +7,7 @@ import { VeeCodeLogo } from './components/VeeCodeLogo';
 export default config({
   storage: {
     kind: 'github',
-    repo: 'veecode-platform/blog'
+    repo: 'veecode-platform/blog-static'
   },
   ui:{
     brand:{

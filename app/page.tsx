@@ -1,9 +1,9 @@
 import { DocumentRenderer } from "@keystatic/core/renderer";
-import Seo from "../../components/Seo";
-import Divider from "../../components/Divider";
-import { inject } from "../../utils/slugHelpers";
+import Seo from "@/components/Seo";
+import Divider from "@/components/Divider";
+import { inject } from "@/utils/slugHelpers";
 import Card from "@/components/Card";
-import { reader } from "../reader";
+import { reader } from "./reader";
 
 
 async function getHomeData() {
