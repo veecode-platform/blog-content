@@ -28,11 +28,6 @@ export default async function Post({ params }: { params: { slug: string } }) {
 export async function generateStaticParams(){
   const slugs = await reader.collections.posts.list();
 
-  // return slugs.map((slug) => ({
-  //   params: {
-  //     slug,
-  //   },
-  // }));
   return slugs.map((slug)=>({
     slug: slug
   }))
