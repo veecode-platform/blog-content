@@ -2,8 +2,6 @@ import { config, fields, collection, singleton } from '@keystatic/core';
 import { ComponentBlocks } from './components/ComponentBlocks';
 import { VeeCodeLogo } from './components/VeeCodeLogo';
 
-// copiar a estrutura antiga
-
 export default config({
   storage: {
     kind: 'github',
