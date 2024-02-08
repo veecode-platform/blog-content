@@ -1,3 +1,5 @@
+"use client"
+
 import React from 'react'
 import NextImage from "next/image";
 import Seo from './Seo'
@@ -15,24 +17,12 @@ import LoopingVideo from './LoopingVideo';
 import Image from './Image';
 import Testimonial from './Testimonial';
 import Button from './Button';
+import { IAuthor, IPost } from '@/@types/interfaces';
 
 interface PostProps {
-    post: {
-        title: string;
-        summary: string;
-        publishedDate: string | null;
-        coverImage: string | null;
-        wordCount: number | null;
-        authors: readonly (string | null)[];
-        content: () => Promise<DocumentElement[]>;
-    },
+    post: IPost,
     slug: string,
-    authors: {
-        slug: string | null;
-        name?: string | undefined;
-        role?: string | undefined;
-        avatar?: string | null | undefined;
-    }[],
+    authors: IAuthor[],
     postElement: DocumentElement[]
 }
 

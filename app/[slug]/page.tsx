@@ -1,18 +1,6 @@
-import { DocumentElement } from "@keystatic/core";
 import { reader } from "@/app/reader";
 import { notFound } from "next/navigation";
 import PostComponent from "@/components/Post";
-
-interface Post {
-  title: string;
-  summary: string;
-  publishedDate: string | null;
-  coverImage: string | null;
-  wordCount: number | null;
-  authors: readonly (string | null)[];
-  content: DocumentElement[];
-}
-
 
 export default async function Post({ params }: { params: { slug: string } }) {
 
@@ -29,7 +17,12 @@ export default async function Post({ params }: { params: { slug: string } }) {
     })
   );
 
-  return <PostComponent post={post} slug={slug} authors={authors} postElement={postElement}/>
+  return <PostComponent 
+              post={post} 
+              slug={slug} 
+              authors={authors} 
+              postElement={postElement}
+              />
 }
 
 export async function generateStaticParams(){
@@ -42,22 +35,3 @@ export async function generateStaticParams(){
   }));
 
 }
-
-// async function generateStaticParams() {
-//   const postSlugs = await reader.collections.posts.list();
-
-//   const postData = await Promise.all(
-//     postSlugs.map(async (slug) => {
-//       const post = await reader.collections.posts.read(slug);
-//       const content = (await post?.content()) || [];
-
-//       return {
-//         ...post,
-//         content,
-//         slug,
-//         ...({ type: "post" } as const),
-//       };
-//     })
-//   );
-//   return postData;
-// }
