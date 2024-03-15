@@ -34,3 +34,62 @@ Teste de parágrafo Teste de parágrafo Teste de parágrafo Teste de parágrafo 
 
 {% iframe
    code="<iframe src=\"https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d16722.469535693454!2d-60.640460799999985!3d-32.9515008!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1spt-BR!2sar!4v1710520059311!5m2!1spt-BR!2sar\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>" /%}
+
+```typescript
+"use client"
+
+import { useState, useEffect } from "react";
+import NextHead from "next/head";
+import { usePathname } from 'next/navigation'
+
+type MetaData = {
+  title?: string;
+  description?: string;
+  imagePath?: string;
+  imageAlt?: string;
+};
+
+const defaultMeta = {
+  title: "VeeCode Blog",
+  description:
+    "A blog about VeeCode Platform made with Tailwind CSS and Next.js.",
+  imagePath: "/images/seo-image.png",
+  imageAlt: "cover image for the Keystatic Blog Template",
+};
+
+export default function Seo({
+  title = defaultMeta.title,
+  description = defaultMeta.description,
+  imagePath = defaultMeta.imagePath,
+  imageAlt = defaultMeta.imageAlt,
+}: MetaData) {
+  // Get correct domain to pass it to SEO image
+  const pathname = usePathname();
+  const [rootUrl, setRootUrl] = useState("");
+  const [currentUrl, setCurrentUrl] = useState("");
+  useEffect(() => {
+    const root = window.location.origin;
+    const current = root + window.location.pathname;
+    setRootUrl(root);
+    setCurrentUrl(current);
+  }, [pathname]);
+
+  return (
+    <NextHead>
+      <title>{title}</title>
+      <meta name="description" content={description} />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:site" content="@site" />
+      <meta name="twitter:creator" content="@thekeystatic" />
+      <meta property="og:title" content={title} />
+      <meta property="og:description" content={description} />
+      <meta property="og:image:alt" content={imageAlt} />
+      <meta property="og:site_name" content={title} />
+      <meta property="og:url" content={currentUrl} />
+      <meta property="og:image" content={rootUrl + imagePath} />
+      <link rel="icon" href="/favicon.ico" />
+    </NextHead>
+  );
+}
+
+```
