@@ -22,4 +22,58 @@ authors:
 \
 Teste de parágrafo Teste de parágrafo Teste de parágrafo Teste de parágrafo Teste de parágrafo Teste de parágrafo Teste de parágrafo Teste de parágrafo Teste de parágrafo Teste de parágrafo Teste de parágrafo Teste de parágrafo Teste de parágrafo Teste de parágrafo Teste de parágrafo Teste de parágrafo Teste de parágrafo Teste de parágrafo Teste de parágrafo Teste de parágrafo Teste de parágrafo Teste de parágrafo Teste de parágrafo Teste de parágrafo Teste de parágrafo Teste de parágrafo Teste de parágrafo Teste de parágrafo Teste de parágrafo Teste de parágrafo Teste de parágrafo Teste de parágrafo Teste de parágrafo Teste de parágrafo Teste de parágrafo Teste de parágrafo Teste de parágrafo Teste de parágrafo .
 
-**negrito**, *itálico* e ~~stroke~~.
+**negrito**, *itálico* e ~~stroke~~.\
+\
+
+- Lista não ordenada item 01
+- Lista não ordenada item 02
+- Lista não ordenada item 03\
+
+1. lista ordenada item 01
+1. lista ordenada item 02
+1. lista ordenada item 03\
+
+> "Não há nada mais trabalhoso que viver sem trabalhar". \
+Madruga, Sir
+
+\
+
+{% layout layout=[1, 1] %}
+{% layout-area %}
+Teste de Layout Esquerdo\
+\
+conteudo do layout
+{% /layout-area %}
+
+{% layout-area %}
+Teste de Layout Direito
+
+conteúdo do layout
+{% /layout-area %}
+{% /layout %}
+
+```typescript
+const sum = (n1: number, n2:number):number => {
+ return n1+n2;
+}
+
+console.log(sum(2,4))
+
+```
+
+---
+
+{% youtubeEmbed youtubeLink="https://www.youtube.com/watch?v=447yaU_4DF8" /%}
+
+\
+Teste de tweet\
+
+{% tweetEmbed
+   tweet="https://x.com/ibuildthecloud/status/1757789265264796003?s=46&t=yK_oBmAbXkAraeOcoTu7Gg" /%}
+
+\
+
+{% iframe
+   code="<iframe src=\"https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d16722.469535693454!2d-60.640460799999985!3d-32.9515008!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1spt-BR!2sar!4v1710519752576!5m2!1spt-BR!2sar\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>" /%}
+
+\
