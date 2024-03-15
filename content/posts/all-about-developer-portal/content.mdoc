@@ -1,0 +1,178 @@
+# Teste de Título h1\
+
+## \
+
+Teste de Título h2
+
+### \
+
+\
+Teste de Título h3\
+
+#### Teste de Título h4
+
+##### Teste de Título h5\
+
+###### Teste de Título h6
+
+paragrafo:
+
+In today's rapidly evolving tech landscape, developer portals stand as indispensable pillars of innovation and collaboration, serving as the beating heart of developer communities worldwide. The essence of the "All About Developer Portal" article lies in unraveling the multifaceted role these portals play in empowering developers. At their core, developer portals represent digital sanctuaries teeming with an array of resources meticulously crafted to nurture the creative spirit of developers. From comprehensive documentation and robust APIs to interactive tutorials and vibrant forums, these portals serve as veritable treasure troves of knowledge, offering developers the tools and insights they need to bring their ideas to life. Moreover, developer portals foster a sense of belonging and camaraderie within the developer ecosystem, encouraging collaboration, knowledge sharing, and collective problem-solving. As developers embark on their journey to build groundbreaking applications, integrations, or extensions, developer portals stand as unwavering allies, providing guidance, support, and inspiration every step of the way.\
+
+imagem:\
+\
+
+{% image
+   image="/content/images/posts/all-about-developer-portal/images (1).jpeg"
+   width=640
+   height=480
+   alt="developer" /%}
+
+\
+divider:\
+\
+
+{% divider noIcon=false /%}
+
+\
+**negrito**\
+*itálico*\
+~~stroke~~\
+
+```
+
+```
+
+````
+
+- Lista não ordenada
+- Item 1
+- Item 2
+- item 3
+
+
+
+1. Lista ordenada
+1. item 1
+1. item 2
+1. item 3\
+
+{% layout layout=[1, 1] %}
+{% layout-area %}
+Divisão de layouts\
+\
+Left:
+
+{% image
+   image="/content/images/posts/all-about-developer-portal/images.png"
+   width=640
+   height=480
+   alt="left" /%}
+{% /layout-area %}
+
+{% layout-area %}
+Divisão de layouts
+
+Right:
+
+
+
+{% image
+   image="/content/images/posts/all-about-developer-portal/images (1).png"
+   width=640
+   height=480
+   alt="Right" /%}
+{% /layout-area %}
+{% /layout %}
+
+\
+\
+Agora redes sociais:\
+\
+Youtube\
+
+
+{% youtubeEmbed youtubeLink="https://www.youtube.com/watch?v=Pmwh8JJelkg" /%}
+
+\
+Twitter:\
+\
+
+
+{% tweetEmbed
+   tweet="https://x.com/ibuildthecloud/status/1757789265264796003?s=46&t=yK_oBmAbXkAraeOcoTu7Gg" /%}
+
+\
+Depoimento:\
+\
+
+
+{% testimonial
+   quote="\"O que me preocupa não é o grito dos maus. É o silêncio dos bons.\" "
+   author="Martin Luther King Jr." /%}
+
+\
+\
+
+
+{% iframe code="<h1>Hello World</h1>" /%}
+
+\
+trecho de código\
+\
+
+
+```tsx
+"use client"
+
+import { cx } from '@/utils/cx';
+import maybeTruncateTextBlock from '@/utils/maybeTruncateTextBlock';
+import Image from 'next/image';
+import Link from 'next/link';
+import React, { useState } from 'react'
+import LazyLoad from 'react-lazyload';
+
+const Card = ({ image, title, summary, link, externalLink }: any) => {
+    const [loaded, setLoaded] = useState(false);
+    return (
+      <LazyLoad height={200} offset={100} once>
+        <li className={cx(`group bg-darkcustom-400 p-3 rounded ${!loaded && 'opacity-placeholder'}`, externalLink && "external-link")}>
+          <Link
+            href={link}
+            target={externalLink ? "_blank" : "_self"}
+            className="no-underline"
+          >
+            <div>
+              <div className="relative w-full h-48">
+                <Image
+                  src={image}
+                  alt=""
+                  width={768}
+                  height={400}
+                  className="rounded-sm object-cover w-full h-full"
+                  onLoad={() => setLoaded(true)} 
+                />
+              </div>
+              <div className="md:min-h-[150px] line-clamp-3">
+                <h3 className="mt-4 text-xl font-medium group-hover:underline text-platform-400">
+                  {title}
+                </h3>
+                {summary && (
+                  <p className="mt-3 text-gray-400 my-2 line-clamp-3 break-words">
+                    {maybeTruncateTextBlock(summary, 100)}
+                  </p>
+                )}
+              </div>
+            </div>
+          </Link>
+        </li>
+      </LazyLoad>
+    );
+}
+
+export default Card
+
+```
+
+
+````
