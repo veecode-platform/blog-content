@@ -1,0 +1,181 @@
+---
+title: 'APIOps with Kong and Backstage: a simple Developer experience'
+summary: >-
+  This is Part 1 of a series of articles on using Kong as a central piece of an
+  IDP (Internal Developer Platform) based on Spotify Backstage.
+publishedDate: '2024-06-27'
+coverImage: coverImage.png
+wordCount: 11237
+authors:
+  - vitoria-cordeiro
+---
+In the very first chapter of "[Cloud Native Transformation](https://www.oreilly.com/library/view/cloud-native-transformation/9781492048893/)" (a great book I recommend to everyone in tech) we can read this simple, yet valuable insight:
+
+> *Ultimately, cloud native is about how we create and deliver, not where.*
+
+Going "cloud native" indeed implies both technical and cultural changes that change how an organization delivers and manages software at scale.
+
+So much has happened in the past decades:
+
+- The "Agile Manifesto" changed how we manage software projects and how we deal with the inevitable uncertainty of our work;
+- The "DevOps" widespread adoption (unifying Operations and Development, even though there is no formal consensus on what "DevOps" really means), making "Agile" a reality by pursuing continuous delivery;
+- Containers, orchestration and infrastructure automation which made much simpler to deal with elastic demand and volatile components;
+- "Platform Engineering" as way to benefit from DevOps without the cognitive load by delivering its automations on self-service portals.
+
+The latest addition to this game are "Internal Developer Platforms", a simple and straightforward approach for self-servicing teams with whatever automations and templates are useful for a particular organization.
+
+Another welcomed addition are the modern API Gateways that are "cloud native" by design and adapt themselves perfectly to the ephemeral and elastic nature of modern IT.
+
+This articles shows how to explore the sinergies that make IDPs and modern API Gateways a very interesting approach to deliver a simple self-service API development experience.
+
+---
+
+### **Kong Gateway**
+
+In this modern world of APIs backed by ephemeral components Kong Gateway fits perfectly by allowing itself to be implemented in many possible ways, some of them with very little maintenance overhead. In a modern IT environment Kong will stand out for:
+
+- **API Management and Routing**
+
+Kong Gateway acts as a central point for managing API requests. It efficiently routes requests to the correct services, regardless of where those services are hosted or how often their locations might change due to the ephemeral nature of the underlying infrastructure. This is crucial in dynamic environments where services can scale up or down in response to demand or be replaced entirely.
+
+- **Handling Ephemeral Components**
+
+Kong Gateway can distribute incoming API traffic across multiple instances of a service, enhancing performance and reducing latency. It also performs health checks to ensure traffic is only routed to healthy instances. This feature is particularly important in a cloud-native environment where service instances might frequently come online or go offline.
+
+- **Security Features**
+
+Security is paramount in API management. Kong Gateway provides layers of security features such as authentication, authorization, encryption, and rate limiting to protect APIs from unauthorized access and denial-of-service attacks. Kong will also integrate well with most security backends each company uses, for its plugins adhere to most protocols like OAuth and OIDC.
+
+- **Extensibility and Plugins**
+
+Kong Gateway allows to extend its functionality with its many bundled plugins, but it also offers a robust plugin architecture so developers may achieve it even more. Whether it’s logging, authentication, or custom transformations, plugins can be used to tailor the gateway to meet the unique needs of any organization. Plugins may be developed in many languages (like Lua, Go or JavaScript), so there are virtually no limits here.
+
+- **Reduced Complexity**
+
+Kong encourages approaches that reduce cognitive load of those delivering APIs. There several possible ways to automate tasksa long the software development chain so that API Management does not become another IT organizational silo. This set of principles and practices that join DevOps and API Managent is called APIOps.
+
+{% image
+   image="/content/images/posts/api-ops-with-kong-and-backstage-a-simple-developer-experience/01.png"
+   width=640
+   height=480
+   alt="Kong Manager (Kong Gateway Admin GUI)" /%}
+
+---
+
+### **Backstage**
+
+The concept of empowering teams through DevOps practices, tools, and culture marked a significant milestone in modern IT and continues to be the defining factor that distinguishes high-performing teams from the slower, more cumbersome approaches of traditional IT.
+
+One drawback of the DevOps culture is that it can place a significant cognitive burden on development teams, who are continually required to manage an increasingly complex set of tools. While this approach suits teams with high seniority in large tech companies with deep pockets, it does not scale well with average teams where senior roles are less common and resources are more constrained.
+
+Platform Engineering is the discipline of providing a self-service experience that reduces such cognitive load by:
+
+- Streamlining and automating the development infrastructure and sandboxes;
+- Presenting a catalog of templates (IaC templates, code archetypes, CI/CD pipelines etc.) that will simplify most developer's tasks beyong coding;
+- Bringing together other tools and reports into proper context, like dashboards, logs, tracing, alerts, status, security, tech debt etc.
+
+An Internal Developer Portal (IDP) is the core of this discipline, whose value isn't the portal itself, but the quality of its hosted automations and templates.
+
+[Spotify Backstage](https://backstage.io/) is one of the many IDPs in the market, an open-source framework donated to the CNCF and gained high traction since then.
+
+Some IDPs are very opinionated on how resources are published and provisioned (like [Humanitec](https://humanitec.com/) and [Cycle](https://cycle.io/)): some organizations need exactly this and this is fine. Backstage, on the other hand, brings no opinions on its own and expects each organization to publish it own template catalog. This fits any organizations that already have many templates or reference architectures that are reused manually or through some in-house scripting.
+
+{% image
+   image="/content/images/posts/api-ops-with-kong-and-backstage-a-simple-developer-experience/02.png"
+   width=640
+   height=480
+   alt="VeeCode's Backstage distro" /%}
+
+Actually Backstage is more a framework than a finished product in itself - there is no ready-to-use open source runtime available from Spotify, all Backstage adopters are expected to build their own release.
+
+Note: Spotify released an enterprise "Spotify Portal for Backstage" in early 2024, but this product is not open source and requires a paid subscription.
+
+We have made available an open Backstage distro that can be used by anyone with a kubernetes cluster. There is a [simple installation](https://docs.platform.vee.codes/devportal/installation-guide/simple-setup/) document available to those who wish to try it locally.
+
+---
+
+### **IaC and GitOps**
+
+A modern company builds Infrastructure as Code (IaC) automations to better provision cloud resources of all kinds. Making them available through a self-service catalog will scale DevOps culture safely, enabling each team to access necessary sandboxes without compromising security.
+
+{% image
+   image="/content/images/posts/api-ops-with-kong-and-backstage-a-simple-developer-experience/03.png"
+   width=640
+   height=480
+   alt="Provisioning a new sandbox cluster" /%}
+
+An IDP will present abstractions that will become tangible when we create proper automations for each one of them. What is an "environment", a "cluster" or a "project" is somewhat contextual - this flexibility is a fundamental part of IDPs, because organizations already have their own opinions.
+
+At Vertigo we translated those abstractions like this:
+
+- **Environment:** a cloud account, its default network (VPC and security groups in AWS, for example), a default domain name and a Gitlab group where its projects will reside (both source and IaC projects);
+- **Cluster:** any infrastructure that receives deployments, whether it is an EKS cluster, a single-node k3s cluster (sandbox), a Nomad cluster or an ECS cluster - all those options are present in the catalog and will be provisioned by smart pipelines in each template. Each cluster will get its own wildcard subdomain, reverse proxy and/or API Gateway ([Kong Ingress Controller](https://docs.konghq.com/kubernetes-ingress-controller/latest/) for k8s clusters), secrets vault and a few extra cool stuff (like observability instrumentation);
+- **Databases:** any external database applications may use (like AWS RDS databases). Provisioning databases and its users will be done by automations as well;
+- **Vaults:** any external secret vault, like AWS KMS or Hashicorp Vault, so developers only need to know a secret's name and templates will take care of the rest;
+- **Project:** any source code repository that will (most likely) be deployed into a cluster. Each type of project has a standard pipelines to build, test and deploy code, so developers do not need to create them from scratch.
+
+So eveything is taken care through GitOps: a new "environment", a new sandbox cluster, a new database, a new set of secrets - a pipeline delivers each piece of infrastructure and Ops teams are encouraged to manage them through their repositories (if they ever need to). Developers are encouraged to "own" them too, so each template may contain actions in the form of maitenance workflows that can be started manually.
+
+{% image
+   image="/content/images/posts/api-ops-with-kong-and-backstage-a-simple-developer-experience/04.png"
+   width=640
+   height=480
+   alt="Maintenance workflows" /%}
+
+All those features combined are great to empower product/developer teams without losing control or compromising security. Also developers are encouraged to use transient environments (sandboxes can be restarted or recycled periodically - we do it daily), so very good habits come from this.
+
+So reduced people and cloud costs, no more overprovisioning right from the start. Considering some of our more demanding projects we calculated about 20k USD savings per month.
+
+---
+
+### **API Projects**
+
+APIs are very specific kind of project that we deal with frequently, because we do a lot of systems integration and IT modernization. Some customers are spec-first, some customers are spec-last, but all of them need an API catalog and all of them do NOT need API Management to become yet another IT operational silo.
+
+API templates will take care of this: those projects have a few extra steps on their pipelines that deliver their API specs into the Backstage catalog and generate the proper API Gateway artifacts that will publish and enable APIs in Kong Gateway automatically. There is zero cognitive overhead for developer beyong coding their APIs and describing their expected behaviour.
+
+This is APIOps: API Management reduced to the current DevOps practice. It makes a lot of sense: if you can deply the API implementation itself, you must make both gateway and catalog aware of it immediately.
+
+The generated Kong services and routes will be visible in the project view as well:
+
+{% image
+   image="/content/images/posts/api-ops-with-kong-and-backstage-a-simple-developer-experience/05.png"
+   width=640
+   height=480
+   alt="Kong routes for a service" /%}
+
+The API catalog is a cool Backstage feature our DevPortal made even simpler to use:
+
+{% image
+   image="/content/images/posts/api-ops-with-kong-and-backstage-a-simple-developer-experience/06.png"
+   width=640
+   height=480
+   alt="The API Catalog" /%}
+
+Even better: developers may enable and configure Kong plugins for their APIs right from DevPortal:
+
+{% image
+   image="/content/images/posts/api-ops-with-kong-and-backstage-a-simple-developer-experience/07.png"
+   width=640
+   height=480
+   alt="Enabling Kong Plugins" /%}
+
+Developers are encouraged to enable and try out Kong plugins manually ("clickops") until the desired outcome is achieved, export those configs and bring them into source code so they will be automated afterwards (GitOps). This will be done by Backstage (DevPortal) itself in a future release.
+
+---
+
+### Kong Adoption Roadmap
+
+This approach makes Kong adoption almost "invisible" to teams sustaining legacy projects and straightforward for those actively pursuing it. Organizations transitioning from Kong OSS to Kong Enterprise will find the process much simpler, as most changes will be managed through standardized pipelines. Improvements from infosec and topology can (and should) be handled by the smart pipelines, not by each product team.
+
+Legacy projects benefit a lot from IDPs, because they bring context developers did not have before. New projects will benefit even more, baceuse teams will have a better experience and a much simpler onboarding.
+
+The move into APIOps backed by an IDP makes API Gateway adoption seamless and, why not, fun.
+
+*Next part of this series will cover hands-on labs so everyone can try this safely at home.*
+
+\**
+
+> ***André Fernandes***
+> 
+> Founder, Chief Product Officer at Vertigo Tecnologia
